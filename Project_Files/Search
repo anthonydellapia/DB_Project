@@ -1,0 +1,40 @@
+			 <?php 
+		$localhost = 'localhost';
+		$dusername = 'root';
+		$dpassword = '';
+		$database = 'gp';
+		$connect = mysql_connect($localhost , $dusername , $dpassword);
+		mysql_select_db($database, $connect);
+?>
+<?php
+  	
+                $search = $_POST ["Search Item"];
+                $query = "SELECT * FROM game g, product p, console c, accessory a WHERE $search = g.game_name OR $search = c.console_type OR $search = a.accessory_name 
+                AND g.product_id = p.product_id OR c.product_id = p.product_id OR a.product_id = p.product_id";  
+                $result = mysql_query($query);  
+                if(mysql_num_rows($result) > 0)  
+                {  
+                     while($row = mysql_fetch_array($result))  
+                     {  
+  
+	?>
+	
+         <div class="image"> <a href="#"><?php echo '<img height="100" width="120" src="data:image;base64,'.$row['image'].' ">'; ?> </div>
+              <h4><a href="http://all-free-download.com/free-website-templates/"><?php echo $row["game_name"]; ?></a></h4>
+              <p class="console"><strong>$ <?php echo $row["product_price"]; ?></strong></p>
+            </div>
+			 <?php  
+                     }  
+                } 
+else 
+{
+echo '<br>';
+echo '<br>';
+echo '<h1 style="text-align:center"> Sorry!! </h1>';
+echo '<br>';
+echo '<br>';
+echo '<h1 style="text-align:center"> Games will be availabe soon  </h1>';
+echo '<br>';
+echo '<br>';
+}				
+      
